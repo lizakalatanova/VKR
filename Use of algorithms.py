@@ -89,8 +89,12 @@ def predict_sum(text_area_1, lengt):
     sumsize=math.ceil(len(tokenise)*lengt)
   else:
     sumsize=lengt
-  summary1 = lxr.get_summary([i.text for i in tokenise], summary_size=sumsize, threshold=None)
-  full_data = ' '.join(summary1)
+  if (len(tokenise)> sumsize): 
+ 	  summary1 = lxr.get_summary([i.text for i in tokenise], summary_size=sumsize, threshold=None)
+  	full_data = ' '.join(summary1)
+  else:
+	   full_data = "Выберите меньшее количество предложений. Количество предложений в исходном тексте составляет - " + str(len(tokenise)))
+
   return full_data
 
 @anvil.server.callable
@@ -107,7 +111,11 @@ def predict_key(text_area_1, coun):
         return res
     clean_word_data = [w for w in lemmatize(article_text) if w.lower() not in stop_words]
     clean_word = " ".join(clean_word_data)
-    full_data = keywords(clean_word, words=coun)
-    return re.sub("\n",", ", full_data)
+    if (len(clean_word)> coun): 
+    	full_data = keywords(clean_word, words=coun)
+	    full_data = re.sub("\n",", ", full_data)
+    else:	
+   	  full_data = "Выберите меньшее количество слов. Количество слов в исходном тексте составляет - " + str(len(clean_word))
+    return full_data
 
 anvil.server.wait_forever()
