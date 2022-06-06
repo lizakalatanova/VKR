@@ -113,7 +113,7 @@ def predict_key(text_area_1, coun):
     clean_word = " ".join(clean_word_data)
     if (len(clean_word)> coun): 
     	full_data = keywords(clean_word, words=coun)
-	    full_data = re.sub("\n",", ", full_data)
+	full_data = re.sub("\n",", ", full_data)
     else:	
    	  full_data = "Выберите меньшее количество слов. Количество слов в исходном тексте составляет - " + str(len(clean_word))
     return full_data
